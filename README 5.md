@@ -265,9 +265,9 @@ Now gather the final screenshots.
 
 Include:
 
-* **Screenshot A:** ![SQL Editor with the first query and visualization](https://github.com/cloud-data-engineering/s3-to-postgres-orm-pipeline-TOmelchenko/blob/main/Screenshots/SQL_Query_1.png)
-* **Screenshot B:** ![SQL Editor with the second query and visualization](https://github.com/cloud-data-engineering/s3-to-postgres-orm-pipeline-TOmelchenko/blob/main/Screenshots/SQL_Query_2.png)
-* **Screenshot C:** ![the dashboard ](https://github.com/cloud-data-engineering/s3-to-postgres-orm-pipeline-TOmelchenko/blob/main/Screenshots/SQL_Query_1.png)
+* **Screenshot A:** ![SQL Editor with the first query and visualization](https://github.com/TOmelchenko/London-Transport-Insights-in-Databricks/blob/main/Screenshots/SQL_Query_1.png)
+* **Screenshot B:** ![SQL Editor with the second query and visualization](https://github.com/TOmelchenko/London-Transport-Insights-in-Databricks/blob/main/Screenshots/SQL_Query_2.png)
+* **Screenshot C:** ![the dashboard ](https://github.com/TOmelchenko/London-Transport-Insights-in-Databricks/blob/main/Screenshots/Dashboard.png)
 
 ### Submission rule
 
