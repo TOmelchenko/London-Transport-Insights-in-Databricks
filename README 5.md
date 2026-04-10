@@ -195,10 +195,10 @@ Write down the dataset you used.
 Use this template:
 
 ```text
-Catalog: ____________________
-Schema: _____________________
-Table: ______________________
-Full name: __________________
+Catalog: workspace
+Schema:  london_transport
+Table:   transport_activity
+Full name: workspace.london_transport.transport_activity
 ```
 
 ### Why this matters
@@ -216,14 +216,11 @@ List the main queries you created.
 Use this template:
 
 ```text
-Query 1 title: __________________________
-Purpose: ________________________________
+Query 1 title: 01_total_journeys_by_line
+Purpose: Calculate total passengers per transport line, ordered from busiest to least busy.
 
-Query 2 title: __________________________
-Purpose: ________________________________
-
-Optional Query 3 title: _________________
-Purpose: ________________________________
+Query 2 title: 02_top_stations_by_journeys
+Purpose: Find the top 10 stations by total passenger count, with a secondary count of total journey records per station.
 ```
 
 ### What this does
@@ -239,80 +236,24 @@ It should be clear what each query was trying to answer.
 
 Now write **short result observations**.
 
-These are not meant to be long reports.
-They should be brief, concrete, and based on what your query results and visuals actually showed.
+- The first query grouped all journeys by line and showed that passenger volume is unevenly distributed — some lines carry significantly more passengers than others.
+- `COALESCE` was used in both queries to handle missing values — stations or lines with no name were labeled as `Unknown` instead of being dropped from the results.
+- The second query limited results to the top 10 stations, which made it easier to focus on the highest-traffic locations rather than reading through the full dataset.
+- Comparing `total_passengers` and `total_journeys` side by side in query 2 revealed that some stations have high passenger counts but fewer individual journey records, suggesting those stations serve longer or busier routes.
+- The bar and line combo chart in query 2 made it easier to spot stations where journey count and passenger count behave differently.
 
-### Example structure
-
-Write **3 to 5 short observations**.
-
-Example format:
-
-* The grouped summary showed that one or two lines had clearly higher total journey counts than the others.
-* The ranking query showed which stations or records had the largest journey values.
-* The dashboard made it easier to compare summary-level and record-level views in one place.
-
-### Important rule
-
-Do not write generic statements like:
-
-* “The dashboard was useful”
-* “SQL helps analyze data”
-
-Write observations that connect to **your actual outputs**.
 
 ---
 
 ## 11. Step 7 — Identify the most useful SQL concept in this project
 
-Write a short paragraph answering this question:
-
-### Prompt
-
-**Which SQL concept was most useful in this mini project, and why?**
-
-Choose one concept such as:
-
-* `WHERE`
-* `ORDER BY`
-* `GROUP BY`
-* `COUNT`
-* `SUM`
-* aliases
-
-### Good answer style
-
-Your answer should explain:
-
-* what the concept does
-* where you used it
-* why it mattered in your results
-
-### Example direction
-
-A strong answer might say that `GROUP BY` was the most useful because it changed the analysis from raw rows into summary-level insight.
+`GROUP BY` was the most useful concept in this project. Both queries used it to collapse raw journey-level rows into summary-level results — grouping by `line_name` in the first query and by `station_name` in the second. Without `GROUP BY`, the result would have been one row per journey record, which is too granular to interpret. With it, the data became comparable across lines and stations. Combined with `SUM` and `COUNT`, it turned a flat table into meaningful operational insight.
 
 ---
 
 ## 12. Step 8 — Identify the main platform insight
 
-Write a short paragraph answering this question:
-
-### Prompt
-
-**What was the main Databricks platform insight from this project?**
-
-This answer should not be only about SQL syntax.
-It should describe the workflow you used inside Databricks.
-
-### Good answer style
-
-A strong answer might mention something like:
-
-* SQL work happens in a structured platform context
-* the SQL Editor is not only a text editor, but a working surface for querying, saving, and reusing logic
-* visuals and dashboards are built on top of query logic, not separately from it
-* good platform work follows a sequence: identify data, query it, save useful logic, then present it
+The main platform insight was that Databricks SQL is a structured workflow, not just a place to run ad hoc queries. The SQL Editor allowed queries to be written, run, and saved as reusable named assets. Those saved queries then became the source for visuals, and the visuals were assembled into a dashboard — all within the same platform. The key realization was that each step builds on the previous one: the table feeds the query, the query feeds the visual, and the visual feeds the dashboard. Working inside Databricks made that sequence explicit and repeatable.
 
 ---
 
@@ -365,24 +306,7 @@ If all of these are true, the mini project is complete.
 
 ## 15. Final reflection prompt
 
-Write one final short reflection using the prompt below.
-
-### Prompt
-
-**Describe the full workflow of this mini project from data access to dashboard output.**
-
-A strong answer should mention the sequence clearly, for example:
-
-* entered the workspace
-* located the dataset
-* opened the SQL Editor
-* wrote and ran queries
-* saved useful queries
-* created visuals
-* assembled a dashboard
-* interpreted the results
-
-This final reflection should be short but complete.
+The workflow started by locating the `transport_activity` table inside the `workspace.london_transport` schema in the Databricks catalog. The SQL Editor was used to write and run two queries — one grouping passengers by line, one ranking the top 10 stations by passenger count. The queries used `GROUP BY`, `SUM`, `COUNT`, `COALESCE`, and `ORDER BY` to produce clean summary results. Each query was saved with a meaningful name so it could be reused and referenced later. Visuals were created directly from the query results — a bar chart for line totals and a combo bar and line chart for station comparisons. Those visuals were then added to a dashboard to present both views together in one place. The final step was reviewing the results and confirming the outputs made sense before closing the project.
 
 ---
 
